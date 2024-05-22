@@ -13,10 +13,10 @@
 # the Doc Template for RISC-V Extensions.
 
 DOCS := \
-	spec-sample.adoc
+	rimt-spec.adoc
 
 DATE ?= $(shell date +%Y-%m-%d)
-VERSION ?= v0.0.0
+VERSION ?= v0.0.1
 REVMARK ?= Draft
 DOCKER_IMG := riscvintl/riscv-docs-base-container-image:latest
 ifneq ($(SKIP_DOCKER),true)
