@@ -1,8 +1,6 @@
-= RISC-V Specification Template
+= RISC-V IO Mapping Table Specification
 
-This repository serves as a template for creating GitHub repositories within the RISC-V organization for the purpose of developing specifications. It aims to facilitate and standardize the process of specification development.
-
-NOTE: If you are viewing this in a specification repository, kindly update the title for this section and provide an introduction relevant to your repository.
+This repository is for hosting the RISC-V IO Mapping Table (RIMT) specification required on ACPI based systems.
 
 == License
 
