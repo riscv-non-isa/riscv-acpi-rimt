@@ -73,12 +73,6 @@ Copyright 2024 by RISC-V International.
 include::contributors.adoc[]
 
 [preface]
-== Change Log
-
-=== Version 0.0.1
-
-* Initial version
-
 == Introduction
 
 The RISC-V IO Mapping Table (RIMT)  provides information about the RISC-V IOMMU and the relationship
@@ -265,7 +259,7 @@ a|
 ==== PCIe Root Complex Device Binding Structure
 The PCIe root complex device binding structure is logical PCIe root complex which can be used to
 represent an entire physical root complex, an RCiEP/set of RCiEPs, a standalone PCIe device or the
-hierarchy below a PCIe hist bridge.
+hierarchy below a PCIe host bridge.
 
 .PCIe Root Complex Device Binding Structure
 [[rc_device_structure]]
@@ -295,12 +289,13 @@ a|
 
 * Bit [31-2]: Reserved, must be zero
 
-| PCIe Segment number     | 2             | 12            | The PCI segment number, as in MCFG and
+| Reserved                | 2             | 12            | Must be zero.
+| PCIe Segment number     | 2             | 14            | The PCI segment number, as in MCFG and
                                                             as returned by _SEG method in the
                                                             ACPI namespace.
-| ID mapping array offset | 2             | 14            | The offset from the start of this device
+| ID mapping array offset | 2             | 16            | The offset from the start of this device
                                                             to the start of the ID mapping array.
-| Number of ID mappings   | 4             | 16            | Number of elements in the ID mapping
+| Number of ID mappings   | 2             | 18            | Number of elements in the ID mapping
                                                             array.
 4+|List of ID mappings
 | ID mapping array        | 16 * N        | 20            | Array of ID mapping structures. See
@@ -321,13 +316,13 @@ range of source IDs to the corresponding device IDs that will be used at the inp
                                                                mapped by this entry to a range of
                                                                device IDs that will be used at input
                                                                to the IOMMU.
-| Destination Device ID Base | 4             | 4             | The base of the destination ID range
-                                                               as mapped by this entry.
-| Number of IDs              | 4             | 8             | Number of IDs in the range. The range
+| Number of IDs              | 4             | 4             | Number of IDs in the range. The range
                                                                must include the IDs of devices that
                                                                may be enumerated later during OS
                                                                boot (For example, SR-IOV Virtual
                                                                Functions).
+| Destination Device ID Base | 4             | 8             | The base of the destination ID range
+                                                               as mapped by this entry.
 | Destination IOMMU Offset   | 4             | 12            | The destination IOMMU with which the
                                                                these IDs are associated. This field
                                                                is the offset of the RISC-V IOMMU
