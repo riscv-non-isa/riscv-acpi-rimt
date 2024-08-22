@@ -240,7 +240,7 @@ a|
 [cols="2,1,1,4", width=95%, options="header"]
 |===
 | *Field*          | *Byte Length* | *Byte Offset* | *Description*
-| Interrupt Number | 4             | 0             | Interrupt wire number.
+| Interrupt Number | 4             | 0             | Interrupt wire number. This should be a Global System Interrupt (GSI) number.
 | Flags            | 4             | 4
 a|
 
