@@ -3,7 +3,7 @@
 :docgroup: Platform Runtime Services Task Group
 :description: RISC-V IO Mapping Table (RIMT)
 :company: RISC-V.org
-:revdate: 5/2024
+:revdate: 8/2024
 :revnumber: 1.0
 :revremark: This document is under development. Expect potential changes. Visit http://riscv.org/spec-state for further details.
 :revinfo:
@@ -240,7 +240,7 @@ a|
 [cols="2,1,1,4", width=95%, options="header"]
 |===
 | *Field*          | *Byte Length* | *Byte Offset* | *Description*
-| Interrupt Number | 4             | 0             | Interrupt wire number.
+| Interrupt Number | 4             | 0             | Interrupt wire number. This should be a Global System Interrupt (GSI) number.
 | Flags            | 4             | 4
 a|
 
@@ -339,11 +339,7 @@ a|
 ** 0: PRI does not need to be enabled for the device to function.
 ** 1: PRI needs to be enabled for the device to function.
 
-* Bit 2: Is RCiEP
-** 0: Source is not RC integrated End Point Device (RCiEP).
-** 1: Source is RC integrated End Point (RCiEP).
-
-* Bit [31-3]: Reserved, must be zero
+* Bit [31-2]: Reserved, must be zero
 |===
 
 ==== Platform Device Binding Structure
