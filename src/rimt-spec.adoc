@@ -152,13 +152,13 @@ structures.
 [cols="1,4", width=95%, options="header"]
 |===
 | *Value* | *Description*
-| 0       | RISC-V IOMMU device structure. See <<iommu_device_structure>>
-| 1       | PCIe Root Complex device structure. See <<rc_device_structure>>
-| 2       | Platform device structure. See <<platform_device_structure>>
+| 0       | RISC-V IOMMU Device Structure. See <<iommu_device_structure>>
+| 1       | PCIe Root Complex Device Binding Structure. See <<rc_device_structure>>
+| 2       | Platform Device Binding Structure. See <<platform_device_structure>>
 | 3-255   | Reserved
 |===
 
-==== IOMMU device structure
+==== IOMMU Device Structure
 The IOMMU may be implemented as a platform device or as a PCIe device. The IOMMU device structure is
 the structure in RIMT used to report the configuration and capabilities of each IOMMU in the system.
 
@@ -266,7 +266,7 @@ hierarchy below a PCIe host bridge.
 [cols="2,1,1,4", width=95%, options="header"]
 |===
 | *Field*                 | *Byte Length* | *Byte Offset* | *Description*
-|Type                     | 1             | 0             | 1 -  PCIe Root Complex device binding
+|Type                     | 1             | 0             | 1 - PCIe Root Complex device binding
                                                             structure.
 |Revision                 | 1             | 1             | 1 - Revision of this structure. For
                                                             structures compliant to this version of
@@ -306,6 +306,7 @@ The ID mapping structure provides information on how devices are connected to an
 may be natively identified by a source ID but the platform may use a remapped ID to identify
 transactions from the device to the IOMMU. Each ID mapping array entry provides a mapping from a
 range of source IDs to the corresponding device IDs that will be used at the input to the IOMMU.
+See <<Mapping-Examples>> for example of ID mapping structures.
 
 .ID Mapping Structure
 [[id_mapping_structure]]
@@ -353,7 +354,7 @@ device only.
 [cols="2,1,1,4", width=95%, options="header"]
 |===
 | *Field*                 | *Byte Length* | *Byte Offset* | *Description*
-| Type                    | 1             | 0             | 2 -  Platform Device Structure.
+| Type                    | 1             | 0             | 2 - Platform Device Binding Structure.
 | Revision                | 1             | 1             | 1 - Revision of this structure.
 | Length                  | 2             | 2             | The length of this structure
                                                             (12 + M + P + 20 * N).
@@ -375,8 +376,37 @@ device only.
 * link:https://github.com/riscv-non-isa/riscv-iommu/releases/download/v1.0.0/riscv-iommu.pdf[RISC-V IOMMU Specification], v1.0.0
 * link:https://uefi.org/specs/ACPI/6.5/[ACPI Specification], Version: v6.5
 
-== Examples
-TBD
+[[Mapping-Examples]]
+== ID Mapping Examples
+
+=== IOMMU as a PCI device
+
+.PCIe device ID mapping
+[[pci_rc_id_mapping_1]]
+[cols="2,2,2,2,1", width=95%, options="header"]
+|===
+| *Source ID Base* | *Number of IDs* | *Destination Device ID Base* | *Destination IOMMU Offset* | *Flags*
+| 0x0100           | 0xFEFF          | 0x0100                       | IOMMU0                     | 0x3
+|===
+
+=== IOMMU as a memory mapped device
+
+.PCIe device ID mapping
+[[pci_rc_id_mapping_2]]
+[cols="2,2,2,2,1", width=95%, options="header"]
+|===
+| *Source ID Base* | *Number of IDs* | *Destination Device ID Base* | *Destination IOMMU Offset* | *Flags*
+| 0x0000           | 0x10            | 0x0                          | IOMMU1                     | 0
+| 0x0100           | 0x10            | 0x10                         | IOMMU1                     | 0
+|===
+
+.Platform device ID mapping
+[[platform_id_mapping]]
+[cols="2,2,2,2,1", width=95%, options="header"]
+|===
+| *Source ID Base* | *Number of IDs* | *Destination Device ID Base* | *Destination IOMMU Offset* | *Flags*
+| 0x0000           | 0x1             | 0x20                         | IOMMU1                     | 0
+|===
 
 // The index must precede the bibliography
 include::index.adoc[]
