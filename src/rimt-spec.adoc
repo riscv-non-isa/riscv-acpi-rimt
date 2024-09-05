@@ -3,7 +3,7 @@
 :docgroup: Platform Runtime Services Task Group
 :description: RISC-V IO Mapping Table (RIMT)
 :company: RISC-V.org
-:revdate: 8/2024
+:revdate: 9/2024
 :revnumber: 1.0
 :revremark: This document is under development. Expect potential changes. Visit http://riscv.org/spec-state for further details.
 :revinfo:
@@ -21,9 +21,9 @@
 //:WaveDromEditorApp: app/wavedrom-editor.app
 :imagesoutdir: images
 //:srcdir: src
-:bibtex-file: src/example.bib
+:bibtex-file: src/rimt.bib
 :bibtex-order: alphabetical
-:bibtex-style: apa
+:bibtex-style: ieee
 :icons: font
 :lang: en
 :listing-caption: Listing
@@ -73,6 +73,9 @@ Copyright 2024 by RISC-V International.
 include::contributors.adoc[]
 
 [preface]
+include::changelog.adoc[]
+
+
 == Introduction
 
 The RISC-V IO Mapping Table (RIMT)  provides information about the RISC-V IOMMU and the relationship
@@ -80,7 +83,7 @@ between the IO topology and the IOMMU in ACPI based RISC-V platforms. The RIMT i
 components are behind IOMMU and how they are connected together. RISC-V IOMMU can be implemented as
 either a PCI device or a platform device.
 
-=== Terms and Abbreviations
+== Terms and Abbreviations
 
 This specification uses the following terms and abbreviations:
 
@@ -89,9 +92,7 @@ This specification uses the following terms and abbreviations:
 | Term  | Meaning
 
 | ACPI  | Advanced Configuration and Power Interface Specification
-| ASL   | ACPI Source Language
-| AML   | ACPI Machine Language
-| OSPM  | Operating System-directed configuration and Power Management
+| IOMMU | Input-Output Memory Management Unit
 | RCiEP | Root Complex Integrated End Point
 |===
 
@@ -371,43 +372,31 @@ device only.
                                                             <<id_mapping_structure>>.
 |===
 
+[[Mapping-Examples]]
+== ID Mapping Examples
+
+.PCIe device ID mapping example
+[[pci_rc_id_mapping_2]]
+[cols="2,2,2,4,1", width=95%, options="header"]
+|===
+| *Source ID Base* | *Number of IDs* | *Destination Device ID Base* | *Destination IOMMU Offset* | *Flags*
+| 0x0000           | 0x10            | 0x0                          | IOMMU0_OFFSET_IN_RIMT         | 0
+| 0x0100           | 0x10            | 0x10                         | IOMMU0_OFFSET_IN_RIMT         | 0
+|===
+
+.Platform device ID mapping example
+[[platform_id_mapping]]
+[cols="2,2,2,4,1", width=95%, options="header"]
+|===
+| *Source ID Base* | *Number of IDs* | *Destination Device ID Base* | *Destination IOMMU Offset* | *Flags*
+| 0x0000           | 0x1             | 0x20                         | IOMMU0_OFFSET_IN_RIMT      | 0
+|===
+
 == References
 
 * link:https://github.com/riscv-non-isa/riscv-iommu/releases/download/v1.0.0/riscv-iommu.pdf[RISC-V IOMMU Specification], v1.0.0
 * link:https://uefi.org/specs/ACPI/6.5/[ACPI Specification], Version: v6.5
 
-[[Mapping-Examples]]
-== ID Mapping Examples
-
-=== IOMMU as a PCI device
-
-.PCIe device ID mapping
-[[pci_rc_id_mapping_1]]
-[cols="2,2,2,2,1", width=95%, options="header"]
-|===
-| *Source ID Base* | *Number of IDs* | *Destination Device ID Base* | *Destination IOMMU Offset* | *Flags*
-| 0x0100           | 0xFEFF          | 0x0100                       | IOMMU0                     | 0x3
-|===
-
-=== IOMMU as a memory mapped device
-
-.PCIe device ID mapping
-[[pci_rc_id_mapping_2]]
-[cols="2,2,2,2,1", width=95%, options="header"]
-|===
-| *Source ID Base* | *Number of IDs* | *Destination Device ID Base* | *Destination IOMMU Offset* | *Flags*
-| 0x0000           | 0x10            | 0x0                          | IOMMU1                     | 0
-| 0x0100           | 0x10            | 0x10                         | IOMMU1                     | 0
-|===
-
-.Platform device ID mapping
-[[platform_id_mapping]]
-[cols="2,2,2,2,1", width=95%, options="header"]
-|===
-| *Source ID Base* | *Number of IDs* | *Destination Device ID Base* | *Destination IOMMU Offset* | *Flags*
-| 0x0000           | 0x1             | 0x20                         | IOMMU1                     | 0
-|===
-
 // The index must precede the bibliography
-include::index.adoc[]
-include::bibliography.adoc[]
+//include::index.adoc[]
+//include::bibliography.adoc[]
