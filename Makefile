@@ -12,27 +12,16 @@
 # This Makefile is designed to automate the process of building and packaging
 # the Doc Template for RISC-V Extensions.
 
-DOCS := \
-	rimt-spec.adoc
-
 DATE ?= $(shell date +%Y-%m-%d)
-VERSION ?= 1.0.0-rc1
+VERSION ?= v1.0.0-rc1
 REVMARK ?= Draft
-DOCKER_IMG := riscvintl/riscv-docs-base-container-image:latest
-ifneq ($(SKIP_DOCKER),true)
-	DOCKER_CMD := docker run --rm -v ${PWD}:/build -w /build \
-	${DOCKER_IMG} \
-	/bin/sh -c
-	DOCKER_QUOTE := "
-endif
+DOCKER_RUN := docker run --rm -v ${PWD}:/build -w /build \
+riscvintl/riscv-docs-base-container-image:latest
 
-SRC_DIR := src
+SRC_DIR := ./src
 BUILD_DIR := build
+HEADER_SOURCE := ${SRC_DIR}/rimt-spec.adoc
 
-DOCS_PDF := $(DOCS:%.adoc=%.pdf)
-DOCS_HTML := $(DOCS:%.adoc=%.html)
-
-XTRA_ADOC_OPTS :=
 ASCIIDOCTOR_PDF := asciidoctor-pdf
 ASCIIDOCTOR_HTML := asciidoctor
 OPTIONS := --trace \
@@ -43,27 +32,15 @@ OPTIONS := --trace \
            -a revdate=${DATE} \
            -a pdf-fontsdir=docs-resources/fonts \
            -a pdf-theme=docs-resources/themes/riscv-pdf.yml \
-           $(XTRA_ADOC_OPTS) \
-		   -D build \
+           -D $(BUILD_DIR) \
            --failure-level=ERROR
 REQUIRES := --require=asciidoctor-bibtex \
             --require=asciidoctor-diagram \
-            --require=asciidoctor-lists \
             --require=asciidoctor-mathematical
 
-.PHONY: all build clean build-container build-no-container build-docs
+.PHONY: all build clean build-container build-no-container
 
 all: build
-
-build-docs: $(DOCS_PDF) $(DOCS_HTML)
-
-vpath %.adoc $(SRC_DIR)
-
-%.pdf: %.adoc
-	$(DOCKER_CMD) $(DOCKER_QUOTE) $(ASCIIDOCTOR_PDF) $(OPTIONS) $(REQUIRES) $< $(DOCKER_QUOTE)
-
-%.html: %.adoc
-	$(DOCKER_CMD) $(DOCKER_QUOTE) $(ASCIIDOCTOR_HTML) $(OPTIONS) $(REQUIRES) $< $(DOCKER_QUOTE)
 
 build:
 	@echo "Checking if Docker is available..."
@@ -77,17 +54,15 @@ build:
 
 build-container:
 	@echo "Starting build inside Docker container..."
-	$(MAKE) build-docs
+	$(DOCKER_RUN) /bin/sh -c "$(ASCIIDOCTOR_PDF) $(OPTIONS) $(REQUIRES) $(HEADER_SOURCE)"
+	$(DOCKER_RUN) /bin/sh -c "$(ASCIIDOCTOR_HTML) $(OPTIONS) $(REQUIRES) $(HEADER_SOURCE)"
 	@echo "Build completed successfully inside Docker container."
 
 build-no-container:
 	@echo "Starting build..."
-	$(MAKE) SKIP_DOCKER=true build-docs
+	$(ASCIIDOCTOR_PDF) $(OPTIONS) $(REQUIRES) $(HEADER_SOURCE)
+	$(ASCIIDOCTOR_HTML) $(OPTIONS) $(REQUIRES) $(HEADER_SOURCE)
 	@echo "Build completed successfully."
-
-# Update docker image to latest
-docker-pull-latest:
-	docker pull ${DOCKER_IMG}
 
 clean:
 	@echo "Cleaning up generated files..."
