@@ -1,0 +1,19 @@
+[[Mapping-Examples]]
+== ID Mapping Examples
+
+.PCIe device ID mapping example
+[[pci_rc_id_mapping_2]]
+[cols="2,2,2,4,1", width=95%, options="header"]
+|===
+| *Source ID Base* | *Number of IDs* | *Destination Device ID Base* | *Destination IOMMU Offset* | *Flags*
+| 0x0000           | 0x10            | 0x0                          | IOMMU0_OFFSET_IN_RIMT         | 0
+| 0x0100           | 0x10            | 0x10                         | IOMMU0_OFFSET_IN_RIMT         | 0
+|===
+
+.Platform device ID mapping example
+[[platform_id_mapping]]
+[cols="2,2,2,4,1", width=95%, options="header"]
+|===
+| *Source ID Base* | *Number of IDs* | *Destination Device ID Base* | *Destination IOMMU Offset* | *Flags*
+| 0x0000           | 0x1             | 0x20                         | IOMMU0_OFFSET_IN_RIMT      | 0
+|===

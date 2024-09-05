@@ -1,0 +1,12 @@
+== Terms and Abbreviations
+
+This specification uses the following terms and abbreviations:
+
+[cols="1,4", width=95%, options="header"]
+|===
+| Term  | Meaning
+
+| ACPI  | Advanced Configuration and Power Interface Specification
+| IOMMU | Input-Output Memory Management Unit
+| RCiEP | Root Complex Integrated End Point
+|===
