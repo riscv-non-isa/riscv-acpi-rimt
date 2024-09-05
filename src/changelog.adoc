@@ -1,0 +1,10 @@
+== Changelog
+
+- *Version 1.0.0-rc1*
+  * Draft for internal review.
+  * Added ID mapping examples.
+  * Documentation template changes.
+  * Addressed PRS TG feedback.
+
+- *Version 0.0.1*
+  * Initial draft for PRS TG review
