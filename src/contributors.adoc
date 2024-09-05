@@ -5,7 +5,9 @@ This RISC-V specification has been contributed to directly or indirectly by:
 [%hardbreaks]
 * Aaron Durbin <adurbin@rivosinc.com>
 * Anup Patel <apatel@ventanamicro.com>
+* Atish Kumar Patra <atishp@rivosinc.com>
 * Bin Meng <bmeng@tinylab.org>
+* Samuel Holland <samuel.holland@sifive.com>
 * Sebastien Boeuf <seb@rivosinc.com>
 * Sunil V L <sunilvl@ventanamicro.com>
 * Tomasz Jeznach <tjeznach@rivosinc.com>
