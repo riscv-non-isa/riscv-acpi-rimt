@@ -43,12 +43,12 @@ device.
 |===
 
 === RIMT device structure types
-RIMT device structures can be broadly classified as two types. One is actual IOMMU device structure
-and other is binding structures for devices bound to an IOMMU. The binding structures can be further
-classified as PCI and platform devices bound to an IOMMU. For example, in a system with single
-IOMMU, RIMT should have at least two entries. One for the IOMMU itself and other for the devices
-behind this particular IOMMU. <<rimt_device_structure>> lists possible types to be used in those
-structures.
+RIMT device structures can be broadly classified as two types: one is the actual IOMMU device
+structure and the other is for the binding structures for devices bound to an IOMMU. The binding
+structures can be further classified as PCI and platform devices bound to an IOMMU. For example,
+in a system with single IOMMU, RIMT should have at least two entries. One for the IOMMU itself
+and another for the devices behind this particular IOMMU. <<rimt_device_structure>> lists possible
+types to be used in those structures.
 
 .RIMT Device Structure Types
 [[rimt_device_structure]]
@@ -87,7 +87,7 @@ the structure in RIMT used to report the configuration and capabilities of each 
                                                                This field is valid only for an IOMMU
                                                                that is a platform device. If IOMMU
                                                                is a PCIe device, the base address of
-                                                               the IOMMU registers maybe discovered
+                                                               the IOMMU registers may be discovered
                                                                from or programmed into the PCIe BAR
                                                                of the IOMMU.
 | Flags                      | 4             | 24
@@ -160,7 +160,7 @@ a|
 |===
 
 ==== PCIe Root Complex Device Binding Structure
-The PCIe root complex device binding structure is logical PCIe root complex which can be used to
+The PCIe root complex device binding structure is the logical PCIe root complex which can be used to
 represent an entire physical root complex, an RCiEP/set of RCiEPs, a standalone PCIe device or the
 hierarchy below a PCIe host bridge.
 
@@ -248,7 +248,7 @@ a|
 
 ==== Platform Device Binding Structure
 There may be non-PCIe platform devices which are enumerated using Differentiated System Description
-Table(DSDT). These devices may have one or more source IDs in the mapping table. But they can have
+Table(DSDT). These devices may have one or more source IDs in the mapping table, but they can have
 its own scheme to define the source IDs. Hence, those source IDs can be unique within the ACPI
 device only.
 
