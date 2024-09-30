@@ -23,7 +23,7 @@
 //:srcdir: src
 :bibtex-file: src/rimt.bib
 :bibtex-order: alphabetical
-:bibtex-style: apa
+:bibtex-style: ieee
 :icons: font
 :lang: en
 :listing-caption: Listing
