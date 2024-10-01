@@ -1,5 +1,11 @@
 == Changelog
 
+- *Version 1.0.0-rc2*
+  * Draft for ARC review.
+  * Addressed internal review feedback.
+  * Used IEEE style bibliography.
+  * Allowed HW ID to be valid for PCI IOMMU as well.
+
 - *Version 1.0.0-rc1*
   * Draft for internal review.
   * Added ID mapping examples.
