@@ -3,7 +3,7 @@
 :docgroup: Platform Runtime Services Task Group
 :description: RISC-V IO Mapping Table (RIMT)
 :company: RISC-V.org
-:revdate: 9/2024
+:revdate: 10/2024
 :revnumber: 1.0
 :revremark: This document is under development. Expect potential changes. Visit http://riscv.org/spec-state for further details.
 :revinfo:
