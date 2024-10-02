@@ -81,8 +81,9 @@ the structure in RIMT used to report the configuration and capabilities of each 
                                                                by the IOMMU.
 | Reserved                   | 2             | 4             | Must be zero.
 | ID                         | 2             | 6             | Unique ID of this IOMMU.
-| Hardware ID                | 8             | 8             | ACPI ID. This field is valid only for
-                                                               an IOMMU that is a platform device.
+| Hardware ID                | 8             | 8             | ACPI ID of the platform IOMMU device
+                                                               or PCI ID (Vendor ID + Device ID) for
+                                                               the PCI IOMMU device.
 | Base Address               | 8             | 16            | Base address of the IOMMU registers.
                                                                This field is valid only for an IOMMU
                                                                that is a platform device. If IOMMU
