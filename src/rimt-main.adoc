@@ -75,10 +75,7 @@ the structure in RIMT used to report the configuration and capabilities of each 
                                                                device structure. For structures
                                                                compliant to this version of the
                                                                specification, the Revision is 1.
-| Length                     | 2             | 2             | The length of this structure in bytes
-                                                               computed as (40 + 8 * N); where N is
-                                                               the number of interrupt wires driven
-                                                               by the IOMMU.
+| Length                     | 2             | 2             | The length of this structure.
 | Reserved                   | 2             | 4             | Must be zero.
 | ID                         | 2             | 6             | Unique ID of this IOMMU.
 | Hardware ID                | 8             | 8             | ACPI ID of the platform IOMMU device
@@ -175,8 +172,7 @@ hierarchy below a PCIe host bridge.
 |Revision                 | 1             | 1             | 1 - Revision of this structure. For
                                                             structures compliant to this version of
                                                             the specification, the Revision is 1.
-|Length                   | 2             | 2             | The length of this structure computed as
-                                                            (20 + 20 * N).
+|Length                   | 2             | 2             | The length of this structure.
 |Reserved                 | 2             | 4             | Must be zero.
 |ID                       | 2             | 6             | Unique ID. It can be simply the array
                                                             index in the RIMT devices array.
@@ -202,7 +198,7 @@ a|
 | Number of ID mappings   | 2             | 18            | Number of elements in the ID mapping
                                                             array.
 4+|List of ID mappings
-| ID mapping array        | 16 * N        | 20            | Array of ID mapping structures. See
+| ID mapping array        | 20 * N        | 20            | Array of ID mapping structures. See
                                                             <<id_mapping_structure>>.
 |===
 
@@ -260,8 +256,7 @@ device only.
 | *Field*                 | *Byte Length* | *Byte Offset* | *Description*
 | Type                    | 1             | 0             | 2 - Platform Device Binding Structure.
 | Revision                | 1             | 1             | 1 - Revision of this structure.
-| Length                  | 2             | 2             | The length of this structure
-                                                            (12 + M + P + 20 * N).
+| Length                  | 2             | 2             | The length of this structure.
 | Reserved                | 2             | 4             | Must be zero.
 | ID                      | 2             | 6             | Unique ID of this device.
 | ID mapping array offset | 2             | 8             | The offset from the start of this device
