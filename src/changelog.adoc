@@ -1,5 +1,8 @@
 == Changelog
 
+- *Version 1.0.0-rc3*
+  * Addressed feedback from ARC review.
+
 - *Version 1.0.0-rc2*
   * Draft for ARC review.
   * Addressed internal review feedback.

@@ -1,7 +1,7 @@
 == RISC-V IO Mapping Table (RIMT)
 
-The <<rimt>> shows the structure of RIMT. Apart from basic header, RIMT contains a number of RIMT
-devices. Each device represents a component which can be an IOMMU, a PCI root complex or a namespace
+The <<rimt>> shows the structure of RIMT. Apart from the basic header, RIMT can contain several
+nodes. Each node represents a component which can be an IOMMU, a PCIe root complex or a platform
 device.
 
 .RISC-V IO Mapping Table
@@ -13,11 +13,7 @@ device.
                                                                 Mapping Table.
 | Length                      | 4             | 4             | The length of the table, in bytes,
                                                                 of the entire RIMT.
-| Revision                    | 1             | 8             | The revision of the structure
-                                                                corresponding to the signature field
-                                                                for this table. For the RIMT
-                                                                confirming to this revision of the
-                                                                specification, the revision is 1.
+| Revision                    | 1             | 8             | 1
 | Checksum                    | 1             | 9             | The entire table must sum to zero.
 | OEMID                       | 6             | 10            | OEM ID.
 | OEM Table ID                | 8             | 16            | For the RIMT, the table ID is the
@@ -28,59 +24,59 @@ device.
                                                                 created the table.
 | Creator Revision            | 4             | 32            | The revision of the utility that
                                                                 created the table.
-| Number of RIMT devices      | 4             | 36            | Number of devices in the RIMT device
+| Number of RIMT Nodes        | 4             | 36            | Number of nodes in the RIMT nodes
                                                                 array.
-| Offset to RIMT device array | 4             | 40            | The offset from start of this table
-                                                                to the first device in RIMT device
+| Offset to RIMT Node Array   | 4             | 40            | The offset from the start of this table
+                                                                to the first node in RIMT node
                                                                 array.
 | Reserved                    | 4             | 44            | Must be zero.
-| RIMT device array           | -             | 48            | List of RIMT Devices in the
-                                                                platform. Devices listed may be one
+| RIMT Node Array             | -             | 48            | List of RIMT nodes in the
+                                                                platform. Nodes listed may be one
                                                                 of the types listed in
-                                                                <<rimt_device_structure>>. These
-                                                                structure for device types is
+                                                                <<rimt_node_structure>>. This
+                                                                structure for node types is
                                                                 defined in the following sections.
 |===
 
-=== RIMT device structure types
-RIMT device structures can be broadly classified as two types: one is the actual IOMMU device
-structure and the other is for the binding structures for devices bound to an IOMMU. The binding
-structures can be further classified as PCI and platform devices bound to an IOMMU. For example,
-in a system with single IOMMU, RIMT should have at least two entries. One for the IOMMU itself
-and another for the devices behind this particular IOMMU. <<rimt_device_structure>> lists possible
-types to be used in those structures.
+=== RIMT node structure types
+RIMT node structures can be broadly classified as two types: one is the actual IOMMU node
+structure and the other is the device node structure for devices bound to an IOMMU. The device node
+structure can be further classified as PCIe and platform device structures bound to an IOMMU. For example,
+in a system with a single IOMMU, RIMT should have at least two nodes. One for the IOMMU itself
+and another for the devices behind this particular IOMMU. <<rimt_node_structure>> lists possible
+types for those structures.
 
-.RIMT Device Structure Types
-[[rimt_device_structure]]
+.RIMT Node Types
+[[rimt_node_structure]]
 [cols="1,4", width=95%, options="header"]
 |===
 | *Value* | *Description*
-| 0       | RISC-V IOMMU Device Structure. See <<iommu_device_structure>>
-| 1       | PCIe Root Complex Device Binding Structure. See <<rc_device_structure>>
-| 2       | Platform Device Binding Structure. See <<platform_device_structure>>
+| 0       | RISC-V IOMMU Node. See <<iommu_node_structure>>
+| 1       | PCIe Root Complex Node. See <<rc_node_structure>>
+| 2       | Platform Device Node. See <<platform_node_structure>>
 | 3-255   | Reserved
 |===
 
-==== IOMMU Device Structure
-The IOMMU may be implemented as a platform device or as a PCIe device. The IOMMU device structure is
+==== IOMMU Node
+The IOMMU may be implemented as a platform device or as a PCIe device. The IOMMU node is
 the structure in RIMT used to report the configuration and capabilities of each IOMMU in the system.
 
-.IOMMU Device Structure
-[[iommu_device_structure]]
+.IOMMU Node
+[[iommu_node_structure]]
 [cols="2,1,1,4", width=95%, options="header"]
 |===
 | *Field*                    | *Byte Length* | *Byte Offset* | *Description*
-| Type                       | 1             | 0             | 0 - IOMMU device structure.
-| Revision                   | 1             | 1             | 1 - Revision of this IOMMU
-                                                               device structure. For structures
-                                                               compliant to this version of the
-                                                               specification, the Revision is 1.
+| Type                       | 1             | 0             | 0 - IOMMU Node.
+| Revision                   | 1             | 1             | 1
 | Length                     | 2             | 2             | The length of this structure.
 | Reserved                   | 2             | 4             | Must be zero.
-| ID                         | 2             | 6             | Unique ID of this IOMMU.
-| Hardware ID                | 8             | 8             | ACPI ID of the platform IOMMU device
-                                                               or PCI ID (Vendor ID + Device ID) for
-                                                               the PCI IOMMU device.
+| ID                         | 2             | 6             | Unique ID of this node in the RIMT which can
+							       be used to locate it in the RIMT node array.
+							       It can be simply the array index in the RIMT
+							       node array.
+| Hardware ID                | 8             | 8             | ACPI ID of the IOMMU when it is a platform device
+                                                               or PCIe ID (Vendor ID + Device ID) for
+                                                               the PCIe IOMMU device.
 | Base Address               | 8             | 16            | Base address of the IOMMU registers.
                                                                This field is valid only for an IOMMU
                                                                that is a platform device. If IOMMU
@@ -127,7 +123,7 @@ a|
                                                                support wire-based interrupt
                                                                generation.
 | Interrupt wire array offset | 2            | 38            | The offset from the start of this
-                                                               device structure entry to the first
+                                                               node entry to the first
                                                                entry of the Interrupt Wire Array.
                                                                This field is valid only if "Number
                                                                of interrupt wires" is not 0.
@@ -141,7 +137,11 @@ a|
 [cols="2,1,1,4", width=95%, options="header"]
 |===
 | *Field*          | *Byte Length* | *Byte Offset* | *Description*
-| Interrupt Number | 4             | 0             | Interrupt wire number. This should be a Global System Interrupt (GSI) number.
+| Interrupt Number | 4             | 0             | Interrupt number. This should be a Global System Interrupt (GSI) number.
+						     These are wired interrupts with GSI numbers mapping to a particular PLIC
+						     or APLIC. The OSPM determines the mapping of the Global System Interrupts
+						     by determining how many interrupt inputs each PLIC or APLIC supports and
+						     by determining the global system interrupt base for each PLIC / APLIC.
 | Flags            | 4             | 4
 a|
 
@@ -157,25 +157,24 @@ a|
 
 |===
 
-==== PCIe Root Complex Device Binding Structure
-The PCIe root complex device binding structure is the logical PCIe root complex which can be used to
+==== PCIe Root Complex Node
+The PCIe root complex node the logical PCIe root complex which can be used to
 represent an entire physical root complex, an RCiEP/set of RCiEPs, a standalone PCIe device or the
 hierarchy below a PCIe host bridge.
 
-.PCIe Root Complex Device Binding Structure
-[[rc_device_structure]]
+.PCIe Root Complex Node
+[[rc_node_structure]]
 [cols="2,1,1,4", width=95%, options="header"]
 |===
 | *Field*                 | *Byte Length* | *Byte Offset* | *Description*
-|Type                     | 1             | 0             | 1 - PCIe Root Complex device binding
-                                                            structure.
-|Revision                 | 1             | 1             | 1 - Revision of this structure. For
-                                                            structures compliant to this version of
-                                                            the specification, the Revision is 1.
+|Type                     | 1             | 0             | 1 - PCIe Root Complex Node.
+|Revision                 | 1             | 1             | 1
 |Length                   | 2             | 2             | The length of this structure.
 |Reserved                 | 2             | 4             | Must be zero.
-|ID                       | 2             | 6             | Unique ID. It can be simply the array
-                                                            index in the RIMT devices array.
+| ID                      | 2             | 6             | Unique ID of this node in the RIMT which can
+							    be used to locate it in the RIMT node array.
+							    It can be simply the array index in the RIMT
+							    node array.
 | Flags                   | 4             | 8
 a|
 
@@ -190,23 +189,27 @@ a|
 * Bit [31-2]: Reserved, must be zero
 
 | Reserved                | 2             | 12            | Must be zero.
-| PCIe Segment number     | 2             | 14            | The PCI segment number, as in MCFG and
+| PCIe Segment number     | 2             | 14            | The PCIe segment number, as in MCFG and
                                                             as returned by _SEG method in the
                                                             ACPI namespace.
-| ID mapping array offset | 2             | 16            | The offset from the start of this device
+| ID mapping array offset | 2             | 16            | The offset from the start of this node
                                                             to the start of the ID mapping array.
 | Number of ID mappings   | 2             | 18            | Number of elements in the ID mapping
                                                             array.
 4+|List of ID mappings
-| ID mapping array        | 20 * N        | 20            | Array of ID mapping structures. See
-                                                            <<id_mapping_structure>>.
+| ID mapping array        | 20 * N        | 20            | Array of ID mapping structures where N
+							    is the number of ID mapping structures.
+							    See <<id_mapping_structure>>.
 |===
 
 The ID mapping structure provides information on how devices are connected to an IOMMU. The devices
 may be natively identified by a source ID but the platform may use a remapped ID to identify
-transactions from the device to the IOMMU. Each ID mapping array entry provides a mapping from a
+transactions from the device to the IOMMU. For PCI devices, source ID is the 16-bit triplet of PCI
+bus number (8-bit), device number (5-bit), and function number (3-bit) (collectively known as routing
+identifier or RID). For platform devices, it is the implementation specific ID and managed
+by the device driver. Each ID mapping array entry provides a mapping from a
 range of source IDs to the corresponding device IDs that will be used at the input to the IOMMU.
-See <<Mapping-Examples>> for example of ID mapping structures.
+See <<Mapping-Examples>> for an example of ID mapping structures.
 
 .ID Mapping Structure
 [[id_mapping_structure]]
@@ -223,11 +226,13 @@ See <<Mapping-Examples>> for example of ID mapping structures.
                                                                boot (For example, SR-IOV Virtual
                                                                Functions).
 | Destination Device ID Base | 4             | 8             | The base of the destination ID range
-                                                               as mapped by this entry.
+                                                               as mapped by this entry. This is the
+							       *device_id* as defined by the RISC-V IOMMU
+							       specification cite:[IOMMU-SPEC]
 | Destination IOMMU Offset   | 4             | 12            | The destination IOMMU with which the
                                                                these IDs are associated. This field
                                                                is the offset of the RISC-V IOMMU
-                                                               device node to the start of the RIMT
+                                                               node to the start of the RIMT
                                                                table.
 | Flags                      | 4             | 16
 a|
@@ -243,29 +248,35 @@ a|
 * Bit [31-2]: Reserved, must be zero
 |===
 
-==== Platform Device Binding Structure
+==== Platform Device Node
 There may be non-PCIe platform devices which are enumerated using Differentiated System Description
 Table(DSDT). These devices may have one or more source IDs in the mapping table, but they can have
-its own scheme to define the source IDs. Hence, those source IDs can be unique within the ACPI
-device only.
+their own scheme to define the source IDs. Hence, those source IDs can only be unique to the ACPI
+platform device. The interpretation of those source IDs is expected to be managed by the platform
+device's device driver.
 
-.Platform Device Binding Structure
-[[platform_device_structure]]
+.Platform Device Node
+[[platform_node_structure]]
 [cols="2,1,1,4", width=95%, options="header"]
 |===
 | *Field*                 | *Byte Length* | *Byte Offset* | *Description*
-| Type                    | 1             | 0             | 2 - Platform Device Binding Structure.
-| Revision                | 1             | 1             | 1 - Revision of this structure.
+| Type                    | 1             | 0             | 2 - Platform Device Node.
+| Revision                | 1             | 1             | 1
 | Length                  | 2             | 2             | The length of this structure.
 | Reserved                | 2             | 4             | Must be zero.
-| ID                      | 2             | 6             | Unique ID of this device.
-| ID mapping array offset | 2             | 8             | The offset from the start of this device
+| ID                      | 2             | 6             | Unique ID of this node in the RIMT which can
+							    be used to locate it in the RIMT node array.
+							    It can be simply the array index in the RIMT
+							    node array.
+| ID mapping array offset | 2             | 8             | The offset from the start of this node
                                                             to the start of the ID mapping array.
 | Number of ID mappings   | 2             | 10            | Number of elements in the ID mapping array.
-| Name                    | M             | 12            | Null terminated ASCII string. Full path
+| Device Object Name      | M             | 12            | Null terminated ASCII string. Full path
                                                             to the device object in the ACPI namespace.
-| Padding                 | P             | 12 + M        | Padding is to 32-bit word-aligned.
+| Padding                 | P             | 12 + M        | Pad with zeros to align the ID mapping array
+							    at 4-byte offset.
 4+|List of ID mappings.
-| ID Mapping Array        | 20 * N        | 12 + M + P    | Array of ID mapping. See
-                                                            <<id_mapping_structure>>.
+| ID Mapping Array        | 20 * N        | 12 + M + P    | Array of ID mapping structures where N is the
+							    number of ID mapping structures.
+							    See <<id_mapping_structure>>.
 |===
