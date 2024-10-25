@@ -9,4 +9,6 @@ This specification uses the following terms and abbreviations:
 | ACPI  | Advanced Configuration and Power Interface Specification
 | IOMMU | Input-Output Memory Management Unit
 | RCiEP | Root Complex Integrated End Point
+| PLIC  | Platform-Level Interrupt Controller
+| APLIC | Advanced Platform-Level Interrupt Controller
 |===
