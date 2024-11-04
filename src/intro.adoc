@@ -4,4 +4,4 @@ The RISC-V IO Mapping Table (RIMT)  provides information about the RISC-V IOMMU
 cite:[IOMMU-SPEC] and the relationship between the IO topology and the IOMMU in
 ACPI cite:[ACPI-SPEC] based RISC-V platforms. The RIMT identifies which
 components are behind IOMMU and how they are connected together. RISC-V IOMMU
-can be implemented as either a PCI device or a platform device.
+can be implemented as either a PCIe device or a platform device.

@@ -41,7 +41,7 @@ device.
 === RIMT node structure types
 RIMT node structures can be broadly classified as two types: one is the actual IOMMU node
 structure and the other is the device node structure for devices bound to an IOMMU. The device node
-structure can be further classified as PCIe and platform device structures bound to an IOMMU. For example,
+structure can be further classified as PCIe root complex and platform device structures bound to an IOMMU. For example,
 in a system with a single IOMMU, RIMT should have at least two nodes. One for the IOMMU itself
 and another for the devices behind this particular IOMMU. <<rimt_node_structure>> lists possible
 types for those structures.
@@ -203,14 +203,22 @@ a|
 							    See <<id_mapping_structure>>.
 |===
 
-The ID mapping structure provides information on how devices are connected to an IOMMU. The devices
-may be natively identified by a source ID but the platform may use a remapped ID to identify
-transactions from the device to the IOMMU. For PCI devices, source ID is the 16-bit triplet of PCI
-bus number (8-bit), device number (5-bit), and function number (3-bit) (collectively known as routing
-identifier or RID). For platform devices, it is the implementation specific ID and managed
-by the device driver. Each ID mapping array entry provides a mapping from a
-range of source IDs to the corresponding device IDs that will be used at the input to the IOMMU.
-See <<Mapping-Examples>> for an example of ID mapping structures.
+The ID mapping structure provides information on how devices are connected to an IOMMU. The devices may be
+natively identified by a source ID but the platform may use a remapped ID to identify transactions from the
+device to the IOMMU.
+
+For PCIe devices, source ID is the 16-bit triplet of PCIe bus number (8-bit), device number (5-bit), and
+function number (3-bit) (collectively known as routing identifier or RID). A range of source IDs must map to a
+single IOMMU only. If there are multiple root complexes with the same PCIe segment number, then their source
+ID ranges must not overlap. For each ACPI device object of the root complex which belongs to the same PCIe
+segment, the firmware must include the Device Specific Method (_DSM), Function Index 5, for preserving boot
+configurations as defined by the PCI Firmware Specification cite:[PCI-FW-SPEC]. The _DSM method must return
+zero to indicate that the Operating System must preserve PCIe resource assignments made by the firmware at
+boot time.
+
+For platform devices, it is the implementation specific ID and managed by the device driver. Each ID mapping
+array entry provides a mapping from a range of source IDs to the corresponding device IDs that will be used at
+the input to the IOMMU. See <<Mapping-Examples>> for an example of ID mapping structures.
 
 .ID Mapping Structure
 [[id_mapping_structure]]
@@ -233,7 +241,7 @@ See <<Mapping-Examples>> for an example of ID mapping structures.
 | Destination IOMMU Offset   | 4             | 12            | The destination IOMMU with which the
                                                                these IDs are associated. This field
                                                                is the offset of the RISC-V IOMMU
-                                                               node to the start of the RIMT
+                                                               node from the start of the RIMT
                                                                table.
 | Flags                      | 4             | 16
 a|
