@@ -1,5 +1,9 @@
 == Changelog
 
+- *Version 1.0.0-rc4*
+  * Added source ID overlap restriction details.
+  * Addressed other ARC feedback for RC3 version.
+
 - *Version 1.0.0-rc3*
   * Addressed feedback from ARC review.
 
@@ -7,7 +11,7 @@
   * Draft for ARC review.
   * Addressed internal review feedback.
   * Used IEEE style bibliography.
-  * Allowed HW ID to be valid for PCI IOMMU as well.
+  * Allowed HW ID to be valid for PCIe IOMMU as well.
 
 - *Version 1.0.0-rc1*
   * Draft for internal review.
