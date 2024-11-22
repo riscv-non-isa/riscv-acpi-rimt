@@ -1,7 +1,7 @@
 == RISC-V IO Mapping Table (RIMT)
 
 The <<rimt>> shows the structure of RIMT. Apart from the basic header, RIMT can contain several
-nodes. Each node represents a component which can be an IOMMU, a PCIe root complex or a platform
+nodes. Each node represents a component, which can be an IOMMU, a PCIe root complex, or a platform
 device.
 
 .RISC-V IO Mapping Table
@@ -43,7 +43,7 @@ RIMT node structures can be broadly classified as two types: one is the actual I
 structure and the other is the device node structure for devices bound to an IOMMU. The device node
 structure can be further classified as PCIe root complex and platform device structures bound to an IOMMU. For example,
 in a system with a single IOMMU, RIMT should have at least two nodes. One for the IOMMU itself
-and another for the devices behind this particular IOMMU. <<rimt_node_structure>> lists possible
+and another for the devices backing this particular IOMMU. <<rimt_node_structure>> lists possible
 types for those structures.
 
 .RIMT Node Types
@@ -58,7 +58,7 @@ types for those structures.
 |===
 
 ==== IOMMU Node
-The IOMMU may be implemented as a platform device or as a PCIe device. The IOMMU node is
+The IOMMU can be implemented as a platform device or as a PCIe device. The IOMMU node is
 the structure in RIMT used to report the configuration and capabilities of each IOMMU in the system.
 
 .IOMMU Node
@@ -70,7 +70,7 @@ the structure in RIMT used to report the configuration and capabilities of each 
 | Revision                   | 1             | 1             | 1
 | Length                     | 2             | 2             | The length of this structure.
 | Reserved                   | 2             | 4             | Must be zero.
-| ID                         | 2             | 6             | Unique ID of this node in the RIMT which can
+| ID                         | 2             | 6             | Unique ID of this node in the RIMT that can
 							       be used to locate it in the RIMT node array.
 							       It can be simply the array index in the RIMT
 							       node array.
@@ -78,7 +78,7 @@ the structure in RIMT used to report the configuration and capabilities of each 
                                                                or PCIe ID (Vendor ID + Device ID) for
                                                                the PCIe IOMMU device.
 | Base Address               | 8             | 16            | Base address of the IOMMU registers.
-                                                               This field is valid only for an IOMMU
+                                                               This field is valid for only an IOMMU
                                                                that is a platform device. If IOMMU
                                                                is a PCIe device, the base address of
                                                                the IOMMU registers may be discovered
@@ -107,17 +107,17 @@ a|
                                                                domain.
 | PCIe Segment number         | 2            | 32            | If the IOMMU is implemented as a PCIe
                                                                device (Bit 0 of Flags is 1), then
-                                                               this field holds the PCIe segment on
-                                                               which this IOMMU is located.
+                                                               this field holds the PCIe segment 
+                                                               where this IOMMU is located.
 | PCIe B/D/F                  | 2            | 34            | If the IOMMU is implemented as a PCIe
                                                                device (Bit 0 of Flags is 1), then
                                                                this field provides the
                                                                Bus/Device/Function of the IOMMU.
 | Number of interrupt wires   | 2            | 36            | An IOMMU may signal IOMMU initiated
-                                                               interrupts using wires or as message
+                                                               interrupts by using wires or as message
                                                                signaled interrupts (MSI). When the
                                                                IOMMU supports signaling interrupts
-                                                               using wires, this field provides the
+                                                               by using wires, this field provides the
                                                                number of interrupt wires. This field
                                                                must be 0 if the IOMMU does not
                                                                support wire-based interrupt
@@ -159,9 +159,9 @@ a|
 |===
 
 ==== PCIe Root Complex Node
-The PCIe root complex node is the logical PCIe root complex which can be used to
-represent an entire physical root complex, an RCiEP/set of RCiEPs, a standalone PCIe device or the
-hierarchy below a PCIe host bridge.
+The PCIe root complex node is the logical PCIe root complex that can be used to
+represent an entire physical root complex, an RCiEP/set of RCiEPs, a standalone PCIe device, or the
+hierarchy following a PCIe host bridge.
 
 .PCIe Root Complex Node
 [[rc_node_structure]]
@@ -172,7 +172,7 @@ hierarchy below a PCIe host bridge.
 |Revision                 | 1             | 1             | 1
 |Length                   | 2             | 2             | The length of this structure.
 |Reserved                 | 2             | 4             | Must be zero.
-| ID                      | 2             | 6             | Unique ID of this node in the RIMT which can
+| ID                      | 2             | 6             | Unique ID of this node in the RIMT that can
 							    be used to locate it in the RIMT node array.
 							    It can be simply the array index in the RIMT
 							    node array.
@@ -203,20 +203,20 @@ a|
 							    See <<id_mapping_structure>>.
 |===
 
-The ID mapping structure provides information on how devices are connected to an IOMMU. The devices may be
-natively identified by a source ID but the platform may use a remapped ID to identify transactions from the
+The ID mapping structure provides information about how devices are connected to an IOMMU. The devices can be
+natively identified by a source ID, but the platform can use a remapped ID to identify transactions from the
 device to the IOMMU.
 
 For PCIe devices, source ID is the 16-bit triplet of PCIe bus number (8-bit), device number (5-bit), and
 function number (3-bit) (collectively known as routing identifier or RID). A range of source IDs must map to a
 single IOMMU only. If there are multiple root complexes with the same PCIe segment number, then their source
-ID ranges must not overlap. For each ACPI device object of the root complex which belongs to the same PCIe
+ID ranges must not overlap. For each ACPI device object of the root complex that belongs to the same PCIe
 segment, the firmware must include the Device Specific Method (_DSM), Function Index 5, for preserving boot
 configurations as defined by the PCI Firmware Specification cite:[PCI-FW-SPEC]. The _DSM method must return
 zero to indicate that the Operating System must preserve PCIe resource assignments made by the firmware at
 boot time.
 
-For platform devices, it is the implementation specific ID and managed by the device driver. Each ID mapping
+For platform devices, source ID is the implementation specific ID and managed by the device driver. Each ID mapping
 array entry provides a mapping from a range of source IDs to the corresponding device IDs that will be used at
 the input to the IOMMU. See <<Mapping-Examples>> for an example of ID mapping structures.
 
@@ -238,8 +238,8 @@ the input to the IOMMU. See <<Mapping-Examples>> for an example of ID mapping st
                                                                as mapped by this entry. This is the
 							       *device_id* as defined by the RISC-V IOMMU
 							       specification cite:[IOMMU-SPEC]
-| Destination IOMMU Offset   | 4             | 12            | The destination IOMMU with which the
-                                                               these IDs are associated. This field
+| Destination IOMMU Offset   | 4             | 12            | The destination IOMMU that is associated 
+                                                               with these IDs. This field
                                                                is the offset of the RISC-V IOMMU
                                                                node from the start of the RIMT
                                                                table.
@@ -258,9 +258,9 @@ a|
 |===
 
 ==== Platform Device Node
-There may be non-PCIe platform devices which are enumerated using Differentiated System Description
-Table(DSDT). These devices may have one or more source IDs in the mapping table, but they can have
-their own scheme to define the source IDs. Hence, those source IDs can only be unique to the ACPI
+There may be non-PCIe platform devices that are enumerated by using Differentiated System Description
+Table(DSDT). These devices can have one or more source IDs in the mapping table, but they can have
+their own scheme to define the source IDs. Hence, those source IDs can be unique to only the ACPI
 platform device. The interpretation of those source IDs is expected to be managed by the platform
 device's device driver.
 
@@ -273,7 +273,7 @@ device's device driver.
 | Revision                | 1             | 1             | 1
 | Length                  | 2             | 2             | The length of this structure.
 | Reserved                | 2             | 4             | Must be zero.
-| ID                      | 2             | 6             | Unique ID of this node in the RIMT which can
+| ID                      | 2             | 6             | Unique ID of this node in the RIMT that can
 							    be used to locate it in the RIMT node array.
 							    It can be simply the array index in the RIMT
 							    node array.
