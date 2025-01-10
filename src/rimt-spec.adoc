@@ -3,9 +3,9 @@
 :docgroup: Platform Runtime Services Task Group
 :description: RISC-V IO Mapping Table (RIMT)
 :company: RISC-V.org
-:revdate: 10/2024
+:revdate: 01/2025
 :revnumber: 1.0
-:revremark: This document is under development. Expect potential changes. Visit http://riscv.org/spec-state for further details.
+:revremark: This document is in Frozen state. Change is extremely unlikely.
 :revinfo:
 :url-riscv: http://riscv.org
 :doctype: book
@@ -41,11 +41,11 @@ endif::[]
 :xrefstyle: short
 
 [WARNING]
-.This document is in the link:http://riscv.org/spec-state[Development state]
+.This document is in the https://lf-riscv.atlassian.net/wiki/display/HOME/Specification+States[Frozen state]
 ====
-Expect potential changes. This draft specification is likely to evolve before
-it is accepted as a standard. Implementations based on this draft
-may not conform to the future standard.
+Change is extremely unlikely. A high threshold will be used, and a change will only occur because of
+some truly critical issue being identified during the public review cycle. Any other desired or
+needed changes can be the subject of a follow-on new extension.
 ====
 
 [preface]
