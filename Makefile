@@ -13,8 +13,8 @@
 # the Doc Template for RISC-V Extensions.
 
 DATE ?= $(shell date +%Y-%m-%d)
-VERSION ?= v1.0.0-rc4
-REVMARK ?= Draft
+VERSION ?= v1.0.0-rc5
+REVMARK ?= Frozen
 DOCKER_RUN := docker run --rm -v ${PWD}:/build -w /build \
 riscvintl/riscv-docs-base-container-image:latest
 
