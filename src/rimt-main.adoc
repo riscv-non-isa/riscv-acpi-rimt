@@ -76,7 +76,9 @@ the structure in RIMT used to report the configuration and capabilities of each 
 							       node array.
 | Hardware ID                | 8             | 8             | ACPI ID of the IOMMU when it is a platform device
                                                                or PCIe ID (Vendor ID + Device ID) for
-                                                               the PCIe IOMMU device.
+                                                               the PCIe IOMMU device. This field adheres to the
+                                                               *_HID* format described by the ACPI
+                                                               cite:[ACPI-SPEC] specification.
 | Base Address               | 8             | 16            | Base address of the IOMMU registers.
                                                                This field is valid for only an IOMMU
                                                                that is a platform device. If IOMMU
