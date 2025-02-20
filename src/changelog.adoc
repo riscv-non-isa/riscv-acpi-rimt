@@ -1,5 +1,10 @@
 == Changelog
 
+- *Version v0.91*
+  * Addressed public review feedback.
+  * Updated version and contributor list.
+  * Ready for TSC sign-off.
+
 - *Version 1.0.0-rc5*
   * Updated document state to Frozen.
 
