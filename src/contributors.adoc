@@ -7,7 +7,7 @@ This RISC-V specification has been contributed to directly or indirectly by:
 * Andrew Jones <ajones@ventanamicro.com>
 * Anup Patel <apatel@ventanamicro.com>
 * Atish Kumar Patra <atishp@rivosinc.com>
-* Bin Meng <bmeng@tinylab.org>
+* Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
 * Samuel Holland <samuel.holland@sifive.com>
 * Sebastien Boeuf <seb@rivosinc.com>
 * Sunil V L <sunilvl@ventanamicro.com>
