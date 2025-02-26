@@ -4,7 +4,7 @@
 :description: RISC-V IO Mapping Table (RIMT)
 :company: RISC-V.org
 :revdate: 02/2025
-:revnumber: v0.91
+:revnumber: v0.92
 :revremark: This document is in Frozen state. Change is extremely unlikely.
 :revinfo:
 :url-riscv: http://riscv.org
