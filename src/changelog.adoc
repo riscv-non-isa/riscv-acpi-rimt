@@ -1,5 +1,8 @@
 == Changelog
 
+- *Version v0.92*
+  * Update the copyright year to include 2025.
+
 - *Version v0.91*
   * Addressed public review feedback.
   * Updated version and contributor list.
