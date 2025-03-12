@@ -13,7 +13,7 @@
 # the Doc Template for RISC-V Extensions.
 
 DATE ?= $(shell date +%Y-%m-%d)
-VERSION ?= v0.92
+VERSION ?= v0.99
 REVMARK ?= 'This document is in Frozen state.  Change is extremely unlikely.'
 DOCKER_RUN := docker run --rm -v ${PWD}:/build -w /build \
 riscvintl/riscv-docs-base-container-image:latest
