@@ -1,5 +1,8 @@
 == Changelog
 
+- *Version v0.99*
+  * Version update to indicate "Ratification Ready" state.
+
 - *Version v0.92*
   * Update the copyright year to include 2025.
 
