@@ -1,5 +1,8 @@
 == Changelog
 
+- *Version v1.0*
+  * Version update to indicate "Ratified" state.
+
 - *Version v0.99*
   * Version update to indicate "Ratification Ready" state.
 
