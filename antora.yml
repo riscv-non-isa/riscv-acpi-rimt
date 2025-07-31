@@ -1,0 +1,5 @@
+name: rimt
+title: IO Mapping Table
+version: v1.0
+nav:
+- modules/ROOT/nav.adoc
