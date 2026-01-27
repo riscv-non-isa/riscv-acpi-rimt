@@ -1,3 +1,6 @@
-= IO Mapping Table
+image::risc-v_logo.svg[]
 
-IO Mapping Table Specification page.
+== RISC-V IO Mapping Table (RIMT)
+
+
+Version v1.0, 2025-03-31: Ratified
