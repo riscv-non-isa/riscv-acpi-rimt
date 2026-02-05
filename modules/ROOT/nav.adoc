@@ -1,5 +1,6 @@
 .IO Mapping Table
 * xref:index.adoc[IO Mapping Table]
+* xref:copyright.adoc[Copyright and License]
 * xref:contributors.adoc[Contributors]
 * xref:changelog.adoc[Changelog]
 * xref:terms.adoc[Terms and Abbreviations]
