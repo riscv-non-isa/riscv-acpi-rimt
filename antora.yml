@@ -3,3 +3,7 @@ title: IO Mapping Table
 version: v1.0
 nav:
 - modules/ROOT/nav.adoc
+
+asciidoc:
+  attributes:
+    page-group: platform-software
