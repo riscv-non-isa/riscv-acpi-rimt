@@ -9,3 +9,4 @@ asciidoc:
     page-pdf_url: _attachments/rimt-spec.pdf
     more_details_url: https://riscv.atlassian.net/wiki/external/ODdiOTYxZjIwOTJlNGM1NWJlM2Y4MDllMzZiODIyNTU
     page-group: platform-software
+    asamBibliography: 'ROOT:rimt.bib'
