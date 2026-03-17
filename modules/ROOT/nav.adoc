@@ -1,0 +1,10 @@
+.IO Mapping Table
+* xref:index.adoc[IO Mapping Table]
+* xref:copyright.adoc[Copyright and License]
+* xref:contributors.adoc[Contributors]
+* xref:changelog.adoc[Changelog]
+* xref:terms.adoc[Terms and Abbreviations]
+* xref:intro.adoc[Introduction]
+* xref:rimt-main.adoc[RISC-V IO Mapping Table (RIMT)]
+* xref:mapping-example.adoc[ID Mapping Examples]
+* xref:bibliography.adoc[Bibliography]
