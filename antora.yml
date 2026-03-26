@@ -1,0 +1,14 @@
+name: rimt
+title: IO Mapping Table
+version: v1.0
+nav:
+- modules/ROOT/nav.adoc
+
+asciidoc:
+  attributes:
+    page-group: platform-software
+    page-card-description: 'Standardized interrupt mapping table format.'
+    page-release-date: 'March 2025'
+    page-pdf_url: _attachments/rimt-spec.pdf
+    more_details_url: https://riscv.atlassian.net/wiki/external/ODdiOTYxZjIwOTJlNGM1NWJlM2Y4MDllMzZiODIyNTU
+    asamBibliography: 'ROOT:pages/rimt.bib'
