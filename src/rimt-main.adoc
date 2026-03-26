@@ -220,7 +220,7 @@ boot time.
 
 For platform devices, source ID is the implementation specific ID and managed by the device driver. Each ID mapping
 array entry provides a mapping from a range of source IDs to the corresponding device IDs that will be used at
-the input to the IOMMU. See <<Mapping-Examples>> for an example of ID mapping structures.
+the input to the IOMMU. See xref:mapping-example.adoc[Chapter 3] for an example of ID mapping structures.
 
 .ID Mapping Structure
 [[id_mapping_structure]]
